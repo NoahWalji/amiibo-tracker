@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from "react-router-dom";
-import Axios from 'axios';
+import {axiosInstance} from "../config"
 import Nav from '../components/Nav';
 import Item from '../components/Item'
 
@@ -22,10 +22,10 @@ function Collection(props) {
             setLoggedin(true);
             setUserID(localStorage.getItem("userID"));
 
-            Axios.post("http://localhost:8080/getCollection", {userID: userID})
+            axiosInstance.post("/getCollection", {userID: userID})
             .then((response) => {
                 setmyCollection(response.data)
-                Axios.post("http://localhost:8080/getWishlist", {userID: userID})
+                axiosInstance.post("/getWishlist", {userID: userID})
                 .then((response) => {
                     setmyWishlist(response.data)
                     setloading(true);
